@@ -17,7 +17,7 @@ ui <- fluidPage(
   ),
   
   # Titel der Anwendung
-  titlePanel(h2("Interaktives Haushaltsoptimum (Cobb-Douglas)", align = "center")),
+  titlePanel(h2("Interaktives Haushaltsoptimum (Cobb-Douglas-Nutzenfunktion)", align = "center")),
   
   # Seitenleisten-Layout
   sidebarLayout(
@@ -26,7 +26,7 @@ ui <- fluidPage(
       width = 3,
       h4("Parameter anpassen"),
       # Schieberegler für das Einkommen (I)
-      sliderInput("I", "Einkommen (I)", min = 50, max = 500, value = 100, step = 10, pre = "€"),
+      sliderInput("I", "Einkommen (I)", min = 50, max = 200, value = 100, step = 10, pre = "€"),
       # Schieberegler für den Preis von Gut 1 (p1)
       sliderInput("p1", "Preis von Gut 1 (p₁)", min = 0.1, max = 5, value = 1, step = 0.1, pre = "€"),
       # Schieberegler für den Preis von Gut 2 (p2)
@@ -123,16 +123,16 @@ server <- function(input, output) {
       
       # Skalen und Achsen anpassen
       scale_x_continuous(
-        limits = c(0, I / p1 * 1.1), 
+        limits = c(0, 300), 
         expand = c(0, 0),
         breaks = unique(round(c(0, x1_eq, I / p1), 1))
       ) +
       scale_y_continuous(
-        limits = c(0, I / p2 * 1.1), 
+        limits = c(0, 300), 
         expand = c(0, 0),
         breaks = unique(round(c(0, x2_eq, I / p2), 1))
       ) +
-      scale_color_manual(values = c("Budgetgerade" = "#007bff", "Indifferenzkurve" = "#dc3545")) +
+      scale_color_manual(values = c("Budgetgerade" = "red", "Indifferenzkurve" = "green")) +
       
       # Titel, Untertitel und Achsenbeschriftungen
       labs(
